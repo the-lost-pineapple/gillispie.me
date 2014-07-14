@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <div class="blog-masthead">
+    <div class="container">
+      <nav class="blog-nav">
+        <%= link_to 'Home', root_path, class: 'blog-nav-item' %>
+        <% if user_signed_in? %>
+          <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'blog-nav-item' %>
+        <% else %>
+          <%= link_to 'Sign In', new_user_session_path, class: 'blog-nav-item' %>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="blog-header">
+      <h1 class="blog-title">The Blog</h1>
+      <p class="lead blog-description">The stuff mang.</p>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-8 blog-main">
+
+        <%= yield %>
+
+      </div>
+
+      <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+        <div class="sidebar-module sidebar-module-inset">
+          <h4>About</h4>
+          <p>Stuff</p>
+        </div>
+        <div class="sidebar-module">
+          <h4>Archives</h4>
+          Later
+        </div>
+        <div class="sidebar-module">
+          <h4>Links</h4>
+          <ol class="list-unstyled">
+            <% @links.each do |link| %>
+              <li><%= link_to link.title, link.href, target: !link.try(:target) ? '_blank' : link.target %></li>
+            <% end %>
+            <% if user_signed_in? %>
+              <%= link_to 'Manage Links', links_path %>
+            <% end %>
+          </ol>
+        </div>
+      </div><!-- /.blog-sidebar -->
+
+    </div><!-- /.row -->
+
+  </div>
+
+  <div class="blog-footer">
+    <p>Footer</p>
+    <p>
+      <a href="#">Back to top</a>
+      <% if user_signed_in? %>
+        | <%= link_to 'New Post', new_post_path %>
+      <% end %>
+    </p>
+  </div>
+
+</body>
+</html>

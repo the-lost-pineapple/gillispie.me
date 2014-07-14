@@ -1,0 +1,19 @@
+<div class="blog-post">
+  <h2 class="blog-post-title"><%= link_to post.title, post %></h2>
+  <p class="blog-post-meta"><%= post.created_at.strftime("%B %d, %Y") %> by <%= post.user.email %></p>
+  <p class="blog-post-meta"><%= post.comments.count %> <%= 'comment'.pluralize post.comments.count %></p>
+  <p>
+    <%= post.markdown.html_safe %>
+  </p>
+  <div class="tags">
+    <% post.tags.split(',').each do |tag| %>
+      <span class="label label-primary"><%= tag %></span>
+    <% end %>
+  </div>
+  <div class="edit-links">
+    <% if user_signed_in? %>
+      <%= link_to '<span class="glyphicon glyphicon-pencil"></span>'.html_safe, edit_post_path(post) %>
+      <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, post, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  </div>
+</div><!-- /.blog-post -->
