@@ -4,5 +4,6 @@ Blog::Application.routes.draw do
   resources :comments
   devise_for :users
   resources :posts
+  get "search", to: "posts#search", as: 'search'
   root 'posts#index'
 end

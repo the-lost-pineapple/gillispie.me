@@ -6,8 +6,10 @@
     <%= post.markdown.html_safe %>
   </p>
   <div class="tags">
-    <% post.tags.split(',').each do |tag| %>
-      <span class="label label-primary"><%= tag %></span>
+    <% if post.tags %>
+      <% post.tags.split(',').each do |tag| %>
+        <span class="label label-primary"><%= tag %></span>
+      <% end %>
     <% end %>
   </div>
   <div class="edit-links">
@@ -15,5 +17,8 @@
       <%= link_to '<span class="glyphicon glyphicon-pencil"></span>'.html_safe, edit_post_path(post) %>
       <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, post, method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
+  </div>
+  <div class="rating">
+    <%= post.get_upvotes.size %>
   </div>
 </div><!-- /.blog-post -->

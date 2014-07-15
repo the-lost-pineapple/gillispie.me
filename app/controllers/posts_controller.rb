@@ -1,13 +1,17 @@
 class PostsController < ApplicationController
 
   before_action :set_post, only: :show
-  before_action :authenticate_user!, except: [:show, :index]
+  before_action :authenticate_user!, except: [:show, :index, :search]
   before_action :auth_post, only: [:edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.paginate(:page => params[:page], per_page: 3)
+  end
+
+  def search
+    @posts = Post.where("body like ?", "%#{params[:search]}%")
   end
 
   # GET /posts/1

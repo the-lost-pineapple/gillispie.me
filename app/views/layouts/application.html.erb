@@ -39,6 +39,13 @@
         <div class="sidebar-module sidebar-module-inset">
           <h4>About</h4>
           <p>Stuff</p>
+          <p>
+            <%= form_tag(search_path, method: :get) do %>
+              <%= label_tag(:q, "Search for:") %>
+              <%= text_field_tag(:search) %>
+              <%= submit_tag("Search") %>
+            <% end %>
+          </p>
         </div>
         <div class="sidebar-module">
           <h4>Archives</h4>
